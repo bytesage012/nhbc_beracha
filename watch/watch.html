@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#061710">
+  <meta name="description" content="Watch BERACHA 2026 live — 11 Hours of Praise from New Heritage Baptist Church, Ilorin. Livestream of the 11th anniversary celebration.">
+  <meta property="og:title" content="Watch BERACHA 2026 Live | 11 Hours of Praise">
+  <meta property="og:description" content="The official livestream of New Heritage Baptist Church's 11th anniversary celebration.">
+  <meta property="og:image" content="/assets/event-flyer.jpg">
+  <meta property="og:type" content="video.other">
+  <title>Watch Live · BERACHA 2026 | New Heritage Baptist Church</title>
+  <link rel="icon" href="/assets/church-logo.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/watch.css">
+</head>
+<body class="watch-page">
+
+<a class="skip-link" href="#player">Skip to player</a>
+
+<!-- ============ MINIMAL HEADER ============ -->
+<header class="watch-header">
+  <div class="watch-header-inner">
+    <a class="watch-brand" href="/" aria-label="Back to BERACHA 2026 homepage">
+      <img src="/assets/church-logo.jpg" alt="New Heritage Baptist Church logo" width="36" height="36">
+      <div>
+        <strong>New Heritage Baptist Church</strong>
+        <small>BERACHA · 2026</small>
+      </div>
+    </a>
+
+    <a class="watch-back" href="/">
+      <span aria-hidden="true">←</span>
+      Back to event
+    </a>
+  </div>
+</header>
+
+<!-- ============ MAIN ============ -->
+<main id="player" class="watch-main">
+
+  <div class="watch-stage-wrap">
+
+    <!-- Ambient background -->
+    <div class="stage-ambient" aria-hidden="true"></div>
+
+    <!-- ============ NOT-LIVE LOADING STATE ============ -->
+    <div class="stage-loader" data-stage-loader>
+      <div class="loader-crest">
+        <div class="crest-ring crest-ring-outer" aria-hidden="true"></div>
+        <div class="crest-ring crest-ring-inner" aria-hidden="true"></div>
+        <img src="/assets/church-logo.jpg"
+             alt="New Heritage Baptist Church logo"
+             width="80" height="80" loading="eager" fetchpriority="high">
+      </div>
+
+      <span class="loader-eyebrow">
+        <span class="loader-pulse" aria-hidden="true"></span>
+        Livestream hasn't started yet
+      </span>
+
+      <h1 id="stream-heading" class="loader-title">The praise is coming</h1>
+      <p id="stream-description" class="loader-subtitle">
+        The livestream will appear here when our team activates it.
+      </p>
+
+      <div class="loader-progress" aria-hidden="true">
+        <span class="loader-progress-bar"></span>
+      </div>
+
+      <div class="loader-countdown-wrap">
+        <span class="loader-countdown-label">Broadcast begins in</span>
+        <strong id="countdown" class="loader-countdown" aria-live="off">Loading countdown…</strong>
+      </div>
+
+      <div class="loader-meta">
+        <div class="loader-meta-item">
+          <span class="loader-meta-label">Event</span>
+          <span class="loader-meta-value">BERACHA 2026</span>
+        </div>
+        <div class="loader-meta-divider" aria-hidden="true"></div>
+        <div class="loader-meta-item">
+          <span class="loader-meta-label">Programme</span>
+          <span class="loader-meta-value">Sun Nov 8 · Mon Nov 9</span>
+        </div>
+        <div class="loader-meta-divider" aria-hidden="true"></div>
+        <div class="loader-meta-item">
+          <span class="loader-meta-label">Location</span>
+          <span class="loader-meta-value">Tanke, Ilorin</span>
+        </div>
+      </div>
+
+      <div class="loader-actions">
+        <a id="youtube-link" class="loader-yt-link" href="#" target="_blank" rel="noopener noreferrer" hidden>
+          Watch on YouTube <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- ============ LIVE PLAYER ============ -->
+    <div id="player-container" class="player-container" hidden>
+      <div class="player-placeholder">
+        <div class="placeholder-crest">
+          <img src="/assets/church-logo.jpg" alt="New Heritage Baptist Church logo" width="64" height="64" loading="eager">
+        </div>
+        <p class="placeholder-title">Loading the broadcast…</p>
+        <p class="placeholder-sub">The stream will begin momentarily.</p>
+      </div>
+    </div>
+
+    <!-- ============ STATUS BAR (always visible) ============ -->
+    <div class="stage-statusbar">
+      <div class="statusbar-left">
+        <span id="live-badge" class="stream-badge upcoming">UPCOMING</span>
+        <span id="connection-state" class="conn-state" role="status">Checking livestream status…</span>
+      </div>
+      <a class="statusbar-home" href="/">
+        BERACHA 2026 <span aria-hidden="true">↗</span>
+      </a>
+    </div>
+
+  </div>
+
+  <!-- Announcement bar (JS-driven) -->
+  <p id="announcement" class="watch-announcement" hidden></p>
+
+  <!-- Small fallback note -->
+  <p class="watch-fallback">
+    Having trouble watching? Try opening the broadcast directly on YouTube when it becomes available.
+  </p>
+
+  <!-- Supporting content — quiet and secondary -->
+  <section class="watch-info">
+    <div class="watch-info-grid">
+      <div>
+        <span class="info-eyebrow">About this broadcast</span>
+        <p class="info-text">
+          The official livestream of <strong>BERACHA 2026</strong> — eleven hours of praise
+          celebrating eleven years of God's faithfulness with New Heritage Baptist Church, Ilorin.
+        </p>
+      </div>
+      <div>
+        <span class="info-eyebrow">Stay notified</span>
+        <p class="info-text">
+          Keep this page open — the broadcast will appear automatically the moment
+          our team activates it. You can also subscribe to our YouTube channel to receive a live alert.
+        </p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="watch-footer">
+  <div class="watch-footer-inner">
+    <span>© 2026 · New Heritage Baptist Church, Ilorin</span>
+    <a href="/">Return to event homepage <span aria-hidden="true">↗</span></a>
+  </div>
+</footer>
+
+<!-- Existing main.js still drives all Supabase & stream logic -->
+<script type="module" src="/js/main.js"></script>
+
+<!-- Dedicated watch-page glue: reacts to badge class changes -->
+<script type="module">
+(function watchPage(){
+  const badge  = document.getElementById('live-badge');
+  const player = document.getElementById('player-container');
+  const body   = document.body;
+  if (!badge || !player) return;
+
+  function sync(){
+    const live = badge.classList.contains('live');
+    body.classList.toggle('is-live', live);
+    // Reveal the player (JS will have already swapped in the iframe)
+    player.hidden = !live;
+    // Update document title so browser tab reflects state
+    const base = 'BERACHA 2026';
+    document.title = live
+      ? `🔴 Live · ${base} | New Heritage Baptist Church`
+      : `Watch Live · ${base} | New Heritage Baptist Church`;
+  }
+
+  new MutationObserver(sync).observe(badge, {
+    attributes: true,
+    attributeFilter: ['class']
+  });
+  sync();
+})();
+</script>
+
+</body>
+</html>
