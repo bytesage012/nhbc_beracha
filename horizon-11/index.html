@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <meta name="theme-color" content="#042b1e">
+  <title>Horizon 11 · Broadcast control center</title>
+  <link rel="icon" href="/assets/church-logo.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+<main class="shell">
+
+  <header class="topbar">
+    <div class="topbar-brand">
+      <img src="/assets/church-logo.jpg" alt="Church logo" width="44" height="44">
+      <div>
+        <strong>Horizon 11</strong>
+        <small>Broadcast control center</small>
+      </div>
+    </div>
+    <a class="topbar-link" href="/" target="_blank" rel="noopener noreferrer">View website ↗</a>
+  </header>
+
+  <!-- Setup required -->
+  <section id="setup" class="panel setup-panel" hidden>
+    <div class="setup-icon" aria-hidden="true">⚠</div>
+    <h2>Setup required</h2>
+    <p>Configure Supabase credentials in <code>js/config.js</code> and run <code>database/schema.sql</code> before signing in.</p>
+  </section>
+
+  <!-- Login -->
+  <section id="login-panel" class="login-panel">
+    <div class="login-art" aria-hidden="true">
+      <div class="login-mark">✦</div>
+      <span>Authorized access</span>
+    </div>
+    <div class="login-card">
+      <h1>Sign in</h1>
+      <p>Enter the approved operator account to manage the livestream.</p>
+      <form id="login-form" novalidate>
+        <label for="email">
+          <span>Email</span>
+          <input id="email" type="email" autocomplete="username" required
+                 inputmode="email" placeholder="operator@newheritage.org">
+        </label>
+        <label for="password">
+          <span>Password</span>
+          <div class="password-wrap">
+            <input id="password" type="password" autocomplete="current-password"
+                   required placeholder="••••••••">
+            <button type="button" class="pw-toggle" data-target="password"
+                    aria-label="Show password">Show</button>
+          </div>
+        </label>
+        <button type="submit" id="login-submit">Sign in</button>
+        <p class="form-hint">Protected by Supabase authentication. Only authorized operators can manage the public broadcast.</p>
+      </form>
+    </div>
+  </section>
+
+  <!-- Dashboard -->
+  <section id="dashboard" hidden>
+
+    <div class="page-head">
+      <div>
+        <h1>Broadcast controls</h1>
+        <p>Update the public livestream and channel settings from this page.</p>
+      </div>
+      <button id="logout" class="btn btn-secondary">Sign out</button>
+    </div>
+
+    <div class="dash-layout">
+
+      <!-- Main column -->
+      <div class="dash-main">
+
+        <!-- Stream state -->
+        <section class="panel">
+          <div class="panel-head">
+            <h2>Stream state</h2>
+            <span class="panel-tag">Public facing</span>
+          </div>
+
+          <form id="stream-form">
+            <label for="video-input">
+              <span>YouTube livestream URL or video ID</span>
+              <input id="video-input" type="text"
+                     placeholder="https://youtube.com/live/... or 11-character ID"
+                     autocomplete="off">
+              <small>Accepts a full YouTube URL, a live URL, or an 11-character video ID.</small>
+            </label>
+
+            <label for="status-input">
+              <span>Broadcast status</span>
+              <select id="status-input">
+                <option value="upcoming">Upcoming</option>
+                <option value="live">Live</option>
+                <option value="ended">Ended</option>
+              </select>
+            </label>
+
+            <label for="announcement-input">
+              <span>Public announcement (optional)</span>
+              <textarea id="announcement-input" rows="3" maxlength="500"
+                        placeholder="e.g. We're experiencing a brief interruption."></textarea>
+              <small>Displayed prominently on the public site while non-empty.</small>
+            </label>
+
+            <div class="actions">
+              <button type="submit" id="save" class="btn btn-primary">Save public state</button>
+            </div>
+          </form>
+        </section>
+
+        <!-- YouTube channel configuration -->
+        <section class="panel">
+          <div class="panel-head">
+            <h2>YouTube channel configuration</h2>
+            <span class="panel-tag">Used for auto-detection</span>
+          </div>
+
+          <form id="settings-form">
+            <div class="field-row">
+              <label for="channel-handle">
+                <span>YouTube @handle / username</span>
+                <input id="channel-handle" type="text" placeholder="@Newhbcilorin" autocomplete="off">
+              </label>
+              <label for="channel-id">
+                <span>YouTube channel ID</span>
+                <input id="channel-id" type="text" placeholder="UC..." autocomplete="off">
+              </label>
+            </div>
+
+            <label for="youtube-key">
+              <span>YouTube Data API key</span>
+              <input id="youtube-key" type="password" placeholder="Leave blank to keep saved key"
+                     autocomplete="new-password">
+              <small class="hint" id="key-state">API key not configured</small>
+            </label>
+
+            <div class="actions">
+              <button type="submit" id="save-settings" class="btn btn-primary">Save channel settings</button>
+              <button type="button" id="resolve-channel" class="btn btn-secondary">Get channel ID from handle</button>
+            </div>
+          </form>
+        </section>
+
+        <!-- Check YouTube -->
+        <section class="panel">
+          <div class="panel-head">
+            <h2>Check YouTube</h2>
+            <span class="panel-tag">Manual only</span>
+          </div>
+          <p class="panel-desc">
+            Find an active livestream from the configured channel. This only runs when
+            you press the button. Review the result and save it yourself — checks never
+            publish automatically.
+          </p>
+          <div class="actions">
+            <button id="check-youtube" class="btn btn-secondary">Check channel now</button>
+          </div>
+          <div id="youtube-result" class="result" hidden></div>
+        </section>
+
+      </div>
+
+      <!-- Side column -->
+      <aside class="dash-side">
+        <section class="panel">
+          <div class="panel-head">
+            <h2>Current public state</h2>
+          </div>
+
+          <div class="state-list">
+            <div class="state-line">
+              <span>Status</span>
+              <strong id="current-status">—</strong>
+            </div>
+            <div class="state-line">
+              <span>Video ID</span>
+              <code id="current-id">—</code>
+            </div>
+            <div class="state-line">
+              <span>Last updated</span>
+              <span id="current-updated">—</span>
+            </div>
+          </div>
+
+          <h3 class="preview-heading">Preview</h3>
+          <div id="preview" class="preview">No video selected</div>
+
+          <button id="reload" class="btn btn-secondary btn-block">Reload database state</button>
+        </section>
+      </aside>
+
+    </div>
+  </section>
+
+  <p id="feedback" class="feedback" role="status" aria-live="polite"></p>
+
+</main>
+
+<script type="module" src="/js/admin.js"></script>
+</body>
+</html>

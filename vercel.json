@@ -1,0 +1,8 @@
+{
+  "version": 2,
+  "cleanUrls": true,
+  "headers": [
+    {"source": "/horizon-11/(.*)", "headers": [{"key":"X-Robots-Tag","value":"noindex, nofollow, noarchive"},{"key":"Cache-Control","value":"no-store"}]},
+    {"source":"/api/(.*)","headers":[{"key":"Cache-Control","value":"no-store"}]}
+  ]
+}
